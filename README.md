@@ -1,5 +1,4 @@
-# vaccin_deso
-Vaccintäckning 2021-08-27 på DeSO-nivå
+# Vaccintäckning 2021-08-27 på DeSO-nivå
 
 Rådatafilerna finns i mappen data.
 
