@@ -1,8 +1,8 @@
 # Vaccintäckning 2021-08-27 på DeSO-nivå
 
-Rådatafilerna finns i mappen data.
+Rådatafilerna finns i mappen data. De finns även här: https://handlingar.se/sv/request/vaccinationsstatistik_pa_deso_ni#incoming-1510
 
-De relevanta filerna är `all_deso.csv` och `age_deso.csv`. Den tidigare innehåller statistik på DeSO-nivåer rakt av, och den andra är uppdelad på två åldersgrupper (18-65 och 65+).
+De relevanta filerna är `all_deso.csv` och `age_deso.csv`. Den tidigare innehåller statistik på DeSO-nivåer rakt av, och den andra är uppdelad på två åldersgrupper (18-64 och 65+).
 
 Information från rådatafilerna: 
 
