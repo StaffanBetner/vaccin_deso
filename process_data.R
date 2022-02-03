@@ -11,7 +11,7 @@ tibble(files = list.files("./data/", recursive = T)) %>%
 
 deso_excel_sheets %>% unnest(sheets) %>% 
   filter(sheets != "Innehåll") %>% 
-  mutate(all_data = purrrgress::pro_map2(files, sheets, ~read_excel(paste0("data/", .x), skip = 1, sheet = .y, na = "-NA-") %>% 
+  mutate(all_data = pro_map2(files, sheets, ~read_excel(paste0("data/", .x), skip = 1, sheet = .y, na = "-NA-") %>% 
                           left_join(county_deso, by = c("DeSO-kod" = "deso")) %>% 
                           fill(county_code, county_name, county_name_long) %>% 
                            mutate_all(as.character))) -> all_data
