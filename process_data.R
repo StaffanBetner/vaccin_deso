@@ -11,12 +11,12 @@ tibble(files = list.files("./data/", recursive = T)) %>%
 
 deso_excel_sheets %>% unnest(sheets) %>% 
   filter(sheets != "Innehåll") %>% 
-  mutate(all_data = pro_map2(files, sheets, ~read_excel(paste0("data/", .x), skip = 1, sheet = .y, na = "-NA-") %>% 
+  mutate(all_data = map2(files, sheets, ~read_excel(paste0("data/", .x), skip = 1, sheet = .y, na = "-NA-") %>% 
                           left_join(county_deso, by = c("DeSO-kod" = "deso")) %>% 
                           fill(county_code, county_name, county_name_long) %>% 
-                           mutate_all(as.character))) -> all_data
+                           mutate_all(as.character))) -> all_data_orig
 
-all_data %>% unnest(all_data) %>% select(-files) %>% 
+all_data_orig %>% unnest(all_data) %>% select(-files) %>% 
   rename(deso = `DeSO-kod`) %>% 
   left_join(deso_regso %>% as_tibble() %>% select(-geometry)) %>% 
   relocate(county_code, county_name, county_name_long, municipality_code, municipality_name, municipality_name_long, regso_code, regso_name, .before=`2 doser %`) %>% 
@@ -24,7 +24,8 @@ all_data %>% unnest(all_data) %>% select(-files) %>%
   relocate(Ålder, Kön, .after = sheet) %>% 
   gather(antal_doser, andel, `2 doser %`, `Minst 1 dos %`, `Minst 2 doser %`, `3 doser %`) %>% 
   separate(andel, into = c("andel","andel_upper"), sep="-", convert=TRUE) %>% 
-  mutate(antal_doser = antal_doser %>% parse_number()) -> 
+  mutate(antal_doser = antal_doser %>% parse_number()) %>% 
+  drop_na(andel) -> 
   all_data
   
 all_data %>% write_csv("all_data.csv")
