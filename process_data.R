@@ -24,7 +24,9 @@ all_data %>% unnest(all_data) %>% select(-files) %>%
   relocate(Ålder, Kön, .after = sheet) %>% 
   gather(antal_doser, andel, `2 doser %`, `Minst 1 dos %`, `Minst 2 doser %`, `3 doser %`) %>% 
   separate(andel, into = c("andel","andel_upper"), sep="-", convert=TRUE) %>% 
-  mutate(antal_doser = antal_doser %>% parse_number()) %>% 
-  write_csv("all_data.csv")
+  mutate(antal_doser = antal_doser %>% parse_number()) -> 
+  all_data
+  
+all_data %>% write_csv("all_data.csv")
 
 zip(zipfile = "all_data.zip", "all_data.csv")
